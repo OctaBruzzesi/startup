@@ -15,21 +15,19 @@ class classMovie{
   }
 }
 
-let Movie = new classMovie("Spider Man", "2016", "120");
-console.log(Movie);
-Movie.play();
-
-
-
 class EventEmitter {
-  constructor() {
+  constructor () {
     this.listeners = new Map();
   }
-  on(event, callback) {
+  on (event, callback) {
     this.listeners.has(event) || this.listeners.set(event, []);
     this.listeners.get(event).push(callback);
   }
-  removeListener(event, callback) {
+  off (event, callback) {
+    let isFunction = function(obj) {
+    return typeof obj == 'function' || false;
+    };
+
     let listeners = this.listeners.get(event),
         index;
 
@@ -48,7 +46,8 @@ class EventEmitter {
     }
     return false;
   }
-  emit(event, ...args) {
+
+  emit (event, ...args) {
     let listeners = this.listeners.get(event);
 
     if (listeners && listeners.length) {
@@ -61,6 +60,20 @@ class EventEmitter {
   }
 }
 
+let Movie1 = new classMovie("Spider Man", "2016", "120");
+let Movie2 = new classMovie("Jumanji", "1999", "115");
+let Movie3 = new classMovie("Jurassic Park", "1996", "90");
+console.log(Movie1);
+Movie1.play();
+
+function showTitle (movie) {
+  console.log("Emitted " + movie.title)
+}
+
 var myEmitter = new EventEmitter;
-myEmitter.on(Movie.play(), function (Movie) {console.log("Emitted " + Movie.title)});
-myEmitter.emit(Movie.play(), Movie);
+myEmitter.on(Movie1, showTitle(Movie1));
+myEmitter.emit(Movie1);
+myEmitter.on(Movie3, showTitle(Movie3));
+myEmitter.emit(Movie3);
+myEmitter.off(Movie1, showTitle(Movie1));
+myEmitter.emit(Movie1, Movie1);
