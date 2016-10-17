@@ -1,79 +1,71 @@
-class classMovie{
-  constructor(title, year, duration){
-    this.title = title;
-    this.year = year;
-    this.duration = duration;
-  }
-  play(){
+class EventEmitter {
+ constructor () {
+   this.listeners = [];
+ }
 
-  }
-  pause(){
+ on (event, callback) {
+   if(this.listeners[event] != callback){
+     this.listeners[event] = callback
+   }
+ }
 
-  }
-  resume(){
+ off (event, callback) {
+   if(this.listeners[event]) this.listeners[event] = undefined;
+ }
 
+ emit (movie, event) {
+    if(this.listeners[event]) this.listeners[event](movie, event);
   }
 }
 
-class EventEmitter {
-  constructor () {
-    this.listeners = new Map();
-  }
-  on (event, callback) {
-    this.listeners.has(event) || this.listeners.set(event, []);
-    this.listeners.get(event).push(callback);
-  }
-  off (event, callback) {
-    let isFunction = function(obj) {
-    return typeof obj == 'function' || false;
-    };
+class logger {
+  constructor(){
 
-    let listeners = this.listeners.get(event),
-        index;
-
-    if (listeners && listeners.length) {
-        index = listeners.reduce((i, listener, index) => {
-            return (isFunction(listener) && listener === callback) ?
-                i = index :
-                i;
-        }, -1);
-
-        if (index > -1) {
-            listeners.splice(index, 1);
-            this.listeners.set(event, listeners);
-            return true;
-        }
-    }
-    return false;
   }
 
-  emit (event, ...args) {
-    let listeners = this.listeners.get(event);
-
-    if (listeners && listeners.length) {
-        listeners.forEach((listener) => {
-            listener(...args);
-        });
-        return true;
-    }
-    return false;
+  log(info, functionName){
+      console.log(info.title + ' ' + functionName)
   }
+}
+
+let myEmitter = new EventEmitter;
+let mylogger = new logger;
+
+class classMovie extends EventEmitter{
+ constructor(title, year, duration){
+   super();
+   this.title = title;
+   this.year = year;
+   this.duration = duration;
+ }
+ play(){
+   super.emit(this, 'play');
+ }
+ pause(){
+   super.emit(this, 'pause');
+ }
+ resume(){
+   super.emit(this, 'resume');
+ }
 }
 
 let Movie1 = new classMovie("Spider Man", "2016", "120");
-let Movie2 = new classMovie("Jumanji", "1999", "115");
-let Movie3 = new classMovie("Jurassic Park", "1996", "90");
+let Movie2 = new classMovie("Iron Man", "2015", "95");
 console.log(Movie1);
+
+
+Movie1.on('play', mylogger.log);
 Movie1.play();
 
-function showTitle (movie) {
-  console.log("Emitted " + movie.title)
-}
+Movie1.on('resume', mylogger.log);
+Movie1.resume();
 
-var myEmitter = new EventEmitter;
-myEmitter.on(Movie1, showTitle(Movie1));
-myEmitter.emit(Movie1);
-myEmitter.on(Movie3, showTitle(Movie3));
-myEmitter.emit(Movie3);
-myEmitter.off(Movie1, showTitle(Movie1));
-myEmitter.emit(Movie1, Movie1);
+Movie1.off('play', mylogger.log);
+Movie1.play();
+
+//
+// Movie1.pause();
+//
+// myEmitter.on(Movie2, mylogger.log);
+// Movie2.play();
+// Movie1.pause();
