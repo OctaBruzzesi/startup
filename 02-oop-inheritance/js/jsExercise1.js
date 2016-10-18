@@ -38,6 +38,7 @@ class classMovie extends EventEmitter{
     this.title = title;
     this.year = year;
     this.duration = duration;
+    this.cast = [];
   }
   play(){
     super.emit(this, 'play');
@@ -47,6 +48,18 @@ class classMovie extends EventEmitter{
   }
   resume(){
     super.emit(this, 'resume');
+  }
+  addCast(actor){
+    if(actor.length === undefined) {
+      console.log("a");
+       this.cast.push(actor);
+    }
+    else {
+      let i;
+      for(i = 0; i < actor.length; i++){
+        this.cast.push(actor[i])
+      }
+    }
   }
 }
 
@@ -60,10 +73,25 @@ let Social = {
   }
 }
 
+class classActor {
+  constructor(name, age) {
+    this.name = name,
+    this.age = age
+  }
+}
+
 let mylogger = new logger;
 
 let Movie1 = new classMovie("Spider Man", "2016", "120");
 let Movie2 = new classMovie("Iron Man", "2015", "95");
+
+let actor1 = new classActor("Leonardo Di Caprio", 47);
+let actor2 = new classActor("Benedict Cumberbatch", 29);
+let actor3 = new classActor("Jennifer Lopez", 38);
+let otherCast = [
+  new classActor("Benedict Cumberbatch", 29),
+  new classActor("Jennifer Lopez", 38)
+  ]
 
 Movie1.on('play', mylogger.log);
 Movie1.play();
@@ -76,10 +104,11 @@ Movie1.play();
 
 Object.assign(Movie1, Social);
 
-console.log(Movie1);
-
 Movie1.share("John Frusciante");
 Movie1.like("John Frusciante");
+Movie1.addCast(actor1);
+Movie1.addCast(otherCast);
+console.log(Movie1.cast);
 //
 // Movie1.pause();
 //
