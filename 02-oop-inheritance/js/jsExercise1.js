@@ -1,82 +1,14 @@
-class EventEmitter {
-  constructor () {
-    this.listeners = {};
-  }
-
-  on (event, callback) {
-    if(this.listeners[event] !== callback){
-      this.listeners[event] = callback
-    }
-  }
-
-  off (event, callback) {
-    if(this.listeners[event]) {
-      delete this.listeners[event];
-    }
-  }
-
-  emit (movie, event) {
-    if(this.listeners[event]) {
-      this.listeners[event](movie, event)
-    }
-  }
-}
-
-class logger {
-  constructor(){
-
-  }
-
-  log(info, functionName){
-      console.log(info.title + ' ' + functionName)
-  }
-}
-
-class classMovie extends EventEmitter{
-  constructor(title, year, duration){
-    super();
-    this.title = title;
-    this.year = year;
-    this.duration = duration;
-    this.cast = [];
-  }
-  play(){
-    super.emit(this, 'play');
-  }
-  pause(){
-    super.emit(this, 'pause');
-  }
-  resume(){
-    super.emit(this, 'resume');
-  }
-  addCast(actor){
-    if(actor.length === undefined) {
-      console.log("a");
-       this.cast.push(actor);
-    }
-    else {
-      let i;
-      for(i = 0; i < actor.length; i++){
-        this.cast.push(actor[i])
-      }
-    }
-  }
-}
+import {EventEmitter} from './EventEmitter';
+import {logger} from './logger';
+import {classMovie} from './classMovie';
+import {classActor} from './classActor';
 
 let Social = {
-
   share: function (friendName) {
-    console.log("Share " + this.title + " with " + friendName);
+    console.log(`Share ${this.title} with ${friendName}`);
   },
   like: function (friendName) {
-    console.log(friendName + " liked " + this.title);
-  }
-}
-
-class classActor {
-  constructor(name, age) {
-    this.name = name,
-    this.age = age
+    console.log(`${friendName} liked ${this.title}`);
   }
 }
 
@@ -86,8 +18,6 @@ let Movie1 = new classMovie("Spider Man", "2016", "120");
 let Movie2 = new classMovie("Iron Man", "2015", "95");
 
 let actor1 = new classActor("Leonardo Di Caprio", 47);
-let actor2 = new classActor("Benedict Cumberbatch", 29);
-let actor3 = new classActor("Jennifer Lopez", 38);
 let otherCast = [
   new classActor("Benedict Cumberbatch", 29),
   new classActor("Jennifer Lopez", 38)
