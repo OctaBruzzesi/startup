@@ -8,12 +8,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../00-HTML-CSS-basics/css/normalize.css">
     </head>
-    <div class = "section">
-      <input type="textArea" id="inputTextArea" name="inputTextArea">
-      <button class="button" onclick="storeTextArea()">Save</button>
-      <p id = "a">
-    </div>
-    <body>
+    <body onload="createIDBTextArea()">
+      <div class = "section">
+        <input type="textArea" id="inputTextArea" name="inputTextArea">
+        <button class="button" onclick="storeLocalTextArea()">Save localStorage</button>
+        <button class = "button" onclick="saveIDBTextArea()">Save on IDB</button>
+        <button class = "button" onclick="deleteLocalTextArea()">Clear localStorage</button>
+        <button class = "button" onclick="deleteIDBTextArea()">Clear IDB</button>
+        <p id = "a">
+      </div>
     </body>
     <script src="./js/jsExercise1.js">
     </script>

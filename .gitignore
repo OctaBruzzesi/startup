@@ -2,3 +2,4 @@
 *.mp3
 *.jpg
 /node_modules/*
+/02-oop-inheritance/npm-debug.log
