@@ -50,6 +50,22 @@ exports.EventEmitter = EventEmitter;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+var Social = {
+  share: function share(friendName) {
+    console.log("Share " + this.title + " with " + friendName);
+  },
+  like: function like(friendName) {
+    console.log(friendName + " liked " + this.title);
+  }
+};
+exports.Social = Social;
+
+},{}],3:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -61,7 +77,7 @@ var classActor = function classActor(name, age) {
 
 exports.classActor = classActor;
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -114,14 +130,7 @@ var classMovie = function (_EventEmitter) {
   }, {
     key: 'addCast',
     value: function addCast(actor) {
-      if (actor.length === undefined) {
-        this.cast.push(actor);
-      } else {
-        var i = void 0;
-        for (i = 0; i < actor.length; i++) {
-          this.cast.push(actor[i]);
-        }
-      }
+      this.cast = this.cast.concat(actor);
     }
   }]);
 
@@ -130,7 +139,7 @@ var classMovie = function (_EventEmitter) {
 
 exports.classMovie = classMovie;
 
-},{"./EventEmitter":1}],4:[function(require,module,exports){
+},{"./EventEmitter":1}],5:[function(require,module,exports){
 'use strict';
 
 var _EventEmitter = require('./EventEmitter');
@@ -141,14 +150,7 @@ var _classMovie = require('./classMovie');
 
 var _classActor = require('./classActor');
 
-var Social = {
-  share: function share(friendName) {
-    console.log('Share ' + this.title + ' with ' + friendName);
-  },
-  like: function like(friendName) {
-    console.log(friendName + ' liked ' + this.title);
-  }
-};
+var _Social = require('./Social');
 
 var mylogger = new _logger.logger();
 
@@ -167,21 +169,15 @@ Movie1.resume();
 Movie1.off('play', mylogger.log);
 Movie1.play();
 
-Object.assign(Movie1, Social);
+Object.assign(Movie1, _Social.Social);
 
 Movie1.share("John Frusciante");
 Movie1.like("John Frusciante");
 Movie1.addCast(actor1);
 Movie1.addCast(otherCast);
 console.log(Movie1.cast);
-//
-// Movie1.pause();
-//
-// myEmitter.on(Movie2, mylogger.log);
-// Movie2.play();
-// Movie1.pause();
 
-},{"./EventEmitter":1,"./classActor":2,"./classMovie":3,"./logger":5}],5:[function(require,module,exports){
+},{"./EventEmitter":1,"./Social":2,"./classActor":3,"./classMovie":4,"./logger":6}],6:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -209,4 +205,4 @@ var logger = function () {
 
 exports.logger = logger;
 
-},{}]},{},[4]);
+},{}]},{},[5]);

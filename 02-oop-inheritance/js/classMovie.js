@@ -17,15 +17,7 @@ class classMovie extends EventEmitter{
     super.emit(this, 'resume');
   }
   addCast(actor){
-    if(actor.length === undefined) {
-       this.cast.push(actor);
-    }
-    else {
-      let i;
-      for(i = 0; i < actor.length; i++){
-        this.cast.push(actor[i])
-      }
-    }
+    this.cast = this.cast.concat(actor);
   }
 }
 export {classMovie}

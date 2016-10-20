@@ -11,17 +11,17 @@
     "browserify": "^13.1.0"
   },
   "scripts": {
-    "build": "browserify 02-oop-inheritance/js/jsExercise1.js -t babelify --outfile 02-oop-inheritance/dist/index.js",
+    "build": "js/jsExercise1.js -t babelify --outfile dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brunobranca/startup.git"
+    "url": "git+https://github.com/OctaBruzzesi/startup.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/brunobranca/startup/issues"
+    "url": "https://github.com/OctaBruzzesi/startup/issues"
   },
-  "homepage": "https://github.com/brunobranca/startup#readme"
+  "homepage": "https://github.com/OctaBruzzesi/startup#readme"
 }
