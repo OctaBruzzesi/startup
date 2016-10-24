@@ -10,13 +10,18 @@
     </head>
     <body onload="createIDBTextArea()">
       <div class = "section">
-        <input type="textArea" id="inputTextArea" name="inputTextArea">
+        <textArea id="inputTextArea" name="inputTextArea"> </textarea>
         <button class="button" onclick="storeLocalTextArea()">Save localStorage</button>
         <button class = "button" onclick="saveIDBTextArea()">Save on IDB</button>
         <button class = "button" onclick="deleteLocalTextArea()">Clear localStorage</button>
         <button class = "button" onclick="deleteIDBTextArea()">Clear IDB</button>
-        <p id = "a">
       </div>
+      <br>
+      <textarea id="drop"> Drop here </textarea>
+      <p id="status"> <br>
+      <h3 id="socket">Socket Test</h3>
+        <p id = "a">
+      <div id="output"></div>
     </body>
     <script src="./js/jsExercise1.js">
     </script>
