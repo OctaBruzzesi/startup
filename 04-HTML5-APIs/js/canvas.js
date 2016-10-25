@@ -20,12 +20,6 @@ function draw() {
         angleInit = 0;
         angleEnd = Math.PI+(Math.PI*r)/2;
         antiClockWise = i/2;
-        if(antiClockWise === 0){
-          false
-        }
-        else{
-          true
-        }
         ctx.arc(x, y, radius, angleInit, angleEnd, antiClockWise);
         if (i>1){
           ctx.fill();

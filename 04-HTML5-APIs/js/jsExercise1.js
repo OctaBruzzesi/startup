@@ -1,3 +1,6 @@
+let wsUri = "ws://echo.websocket.org/";
+let output;
+
 function storeLocalTextArea () {
   let input = {key: 0, text: document.getElementById("inputTextArea").value};
   localStorage.setItem("inputTextStored", input.text);
@@ -19,7 +22,6 @@ function createIDBTextArea () {
   }
 
   db.onsuccess = function (event){
-    //alert("Indexed Data Base create successfully");
   }
 }
 
@@ -48,7 +50,7 @@ function deleteLocalTextArea () {
 
 function deleteIDBTextArea () {
   let result = db.result;
-  var request = result.transaction("textDataBase", "readwrite").objectStore("textDataBase").clear();
+  let request = result.transaction("textDataBase", "readwrite").objectStore("textDataBase").clear();
 
   request.onsuccess = function (event) {
     alert("Remove");
@@ -57,12 +59,12 @@ function deleteIDBTextArea () {
 
 //Exercise 3 drop zone
 
-function allowDrop(ev){
-  ev.preventDefault();
-  ev.dataTransfer.dropEffect = "copy";
+function allowDrop(event){
+  event.preventDefault();
+  event.dataTransfer.dropEffect = "copy";
 }
 
-var holder = document.getElementById('drop'),
+let holder = document.getElementById('drop'),
     state = document.getElementById('status');
 
 if (typeof window.FileReader === 'undefined') {
@@ -81,10 +83,10 @@ holder.ondragend = function() {
     return false;
 };
 holder.ondrop = function(e) {
-    this.className = '';
+    this.constructor.name = '';
     e.preventDefault();
 
-    var file = e.dataTransfer.files,
+    let file = e.dataTransfer.files,
         reader = new FileReader();
     reader.onload = function(event) {
       document.getElementById('drop').value = event.target.result;
@@ -96,58 +98,48 @@ holder.ondrop = function(e) {
 // exercise 4 socket
 
 
-  var wsUri = "ws://echo.websocket.org/";
-  var output;
 
-  function init()
-  {
-    output = document.getElementById("output");
-    testWebSocket();
-  }
+function init(){
+  output = document.getElementById("output");
+  testWebSocket();
+}
 
-  function testWebSocket()
-  {
-    websocket = new WebSocket(wsUri);
-    websocket.onopen = function(evt) { onOpen(evt) };
-    websocket.onclose = function(evt) { onClose(evt) };
-    websocket.onmessage = function(evt) { onMessage(evt) };
-    websocket.onerror = function(evt) { onError(evt) };
-  }
+function testWebSocket() {
+  websocket = new WebSocket(wsUri);
+  websocket.onopen = onOpen;
+  websocket.onclose = onClose;
+  websocket.onmessage = onMessage;
+  websocket.onerror = onError;
+}
 
-  function onOpen(evt)
-  {
-    writeToScreen("CONNECTED");
-    doSend("WebSocket rocks");
-  }
+function onOpen(evt) {
+  writeToScreen("CONNECTED");
+  doSend("WebSocket rocks");
+}
 
-  function onClose(evt)
-  {
-    writeToScreen("DISCONNECTED");
-  }
+function onClose(evt) {
+  writeToScreen("DISCONNECTED");
+}
 
-  function onMessage(evt)
-  {
-    writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
-    websocket.close();
-  }
+function onMessage(evt) {
+  writeToScreen(`<span>CONNECTED:</span> ${evt.data}`);
+  websocket.close();
+}
 
-  function onError(evt)
-  {
-    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
-  }
+function onError(evt) {
+  writeToScreen(`<span>ERROR:</span> ${evt.data}`);
+}
 
-  function doSend(message)
-  {
-    writeToScreen("SENT: " + message);
-    websocket.send(message);
-  }
+function doSend(message) {
+  writeToScreen(`SENT: ${message}`);
+  websocket.send(message);
+}
 
-  function writeToScreen(message)
-  {
-    var pre = document.createElement("p");
-    pre.style.wordWrap = "break-word";
-    pre.innerHTML = message;
-    output.appendChild(pre);
-  }
+function writeToScreen(message) {
+  let messageWrite = document.createElement("p");
+  messageWrite.style.wordWrap = "break-word";
+  messageWrite.innerHTML = message;
+  output.appendChild(messageWrite);
+}
 
-  window.addEventListener("load", init, false);
+window.addEventListener("load", init, false);

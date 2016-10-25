@@ -5,7 +5,7 @@ function initialize () {
   let drawSpeedy = 4;
 
   function animateDraw() {
-    let animationFrame = window.mRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame||
+    let animationFrame = window.mRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame||
     window.oRequestAnimationFrame; // supports different browsers
     animationFrame(animateDraw);
     x += drawSpeedx;
