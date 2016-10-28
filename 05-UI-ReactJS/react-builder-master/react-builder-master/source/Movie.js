@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MovieInput from './MovieInput';
 import MovieList from './MovieList';
+import MovieEdit from './MovieEdit';
 
 class Movie extends React.Component{
   render () {
@@ -11,6 +12,7 @@ class Movie extends React.Component{
             <MovieList movies={this.getMovies()} />
             <h3 id="favouriteListTitle" />
             <ul id="list" />
+            <MovieEdit movies={this.getMovies()} />
         </div>
     );
   }

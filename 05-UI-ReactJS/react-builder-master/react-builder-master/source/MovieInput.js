@@ -13,6 +13,7 @@ class MovieInput extends React.Component {
 
   handleChangeTitle(event) {
     this.setState({title: event.target.value});
+    alert(this.state.title);
   }
 
   handleChangeYear(event) {
