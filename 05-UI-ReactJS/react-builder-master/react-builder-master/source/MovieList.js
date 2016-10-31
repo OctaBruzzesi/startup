@@ -12,15 +12,21 @@ class MovieList extends React.Component {
       <ul>
         {this.renderItems()}
       </ul>
+
     );
   }
 
   renderItems () {
-    let favourites = this.props.movies.filter( function(item) {
-      return item.favourite
-    })
-    console.log(favourites);
-    return favourites.map(this.renderItem);
+    let favourites;
+    if(this.props.movies !== null){
+      favourites = this.props.movies.filter( function(item) {
+        return item.favourite
+      })
+      return favourites.map(this.renderItem);
+    }
+    return (
+      <li />
+    )
   }
 
   renderItem (item, index) {
