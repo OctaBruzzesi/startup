@@ -3,12 +3,16 @@ import React from 'react';
 class MovieInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {title: this.props.default,year: "",duration: "", favourite: true};
+    this.state = {title: "",year: "",duration: "", favourite: true};
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeYear = this.handleChangeYear.bind(this);
     this.handleChangeDuration = this.handleChangeDuration.bind(this);
     this.handleFavourite = this.handleFavourite.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  component(props){
+    console.log(this.props)
   }
 
   handleChangeTitle(event) {
@@ -38,12 +42,12 @@ class MovieInput extends React.Component {
   render() {
     return (
       <div>Movie<br/>
-            <p>{this.state}</p>
             <input type="text" placeholder="Title" name="title" value={this.state.title} onChange={this.handleChangeTitle} /><br /><br />
             <input type="text" placeholder="Year" name="year" value={this.state.year} onChange={this.handleChangeYear} /><br /><br />
             <input type="text" placeholder="Duration" name="duration" value={this.state.duration} onChange={this.handleChangeDuration}/><br /><br />
             <label />Mark as favourite <input type="checkbox" checked={this.state.favourite} onChange={this.handleFavourite} /> <br /> <br />
             <button onClick={this.handleSubmit.bind(this)}>Submit</button>
+            <button onClick={this.component.bind(this)}>Try</button>
       </div>
     );
   }

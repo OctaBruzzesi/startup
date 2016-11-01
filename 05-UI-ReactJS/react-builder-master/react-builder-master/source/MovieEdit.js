@@ -36,6 +36,11 @@ class MovieEdit extends React.Component {
 //     )
 //   }
 //
+
+  component(props){
+    console.log(this.props)
+  }
+
   initializeState (index) {
     console.log(index)
     this.props.onSubmit(index);
@@ -83,7 +88,9 @@ class MovieEdit extends React.Component {
         <br />
         <il>{item.title}</il>
         <button onClick={boundItemClick}>Edit</button>
+        <button onClick={this.component.bind(this)}>Try</button>
       </div>
+
     )
   }
 

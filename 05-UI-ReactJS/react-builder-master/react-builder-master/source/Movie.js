@@ -3,16 +3,22 @@ import ReactDOM from 'react-dom';
 import MovieInput from './MovieInput';
 import MovieList from './MovieList';
 import MovieEdit from './MovieEdit';
+let i;
 
 class Movie extends React.Component{
+  constructor () {
+    super();
+    this.state = {movieToUpdate: {}}
+  }
+
   render () {
     return (
         <div className="movie">
-            <MovieInput onSubmit={this.handleMovieInputSubmit} movie={this.handleMovieUpdate}/> <br />
+            <MovieInput onSubmit={this.handleMovieInputSubmit} movie={this.state.movieToUpdate}/> <br />
             <MovieList movies={this.getMovies()} />
             <h3 id="favouriteListTitle" />
             <ul id="list" />
-            <MovieEdit movies={this.getMovies()} onSubmit={this.handleMovieUpdate} />
+            <MovieEdit movies={this.getMovies()} onSubmit={this.handleMovieUpdate.bind(this)} />
         </div>
     );
   }
@@ -33,10 +39,13 @@ class Movie extends React.Component{
     localStorage.setItem("movieStorage", JSON.stringify(movies));
   }
 
-  handleMovieUpdate (index) {
-    let movies = JSON.parse(localStorage.getItem("movieStorage"));
-    console.log(movies[index])
-    return(movies[index])
+  handleMovieUpdate (index, i) {
+    if(index!==null){
+      let movies = JSON.parse(localStorage.getItem("movieStorage"));
+      console.log(movies[index])
+      // console.log(movies[index])
+      this.setState({movieToUpdate: movies[index]});
+    }
   }
 };
 
