@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import MovieInput from './MovieInput';
 import MovieList from './MovieList';
 import MovieEdit from './MovieEdit';
-let i;
+import { Link } from 'react-router';
 
 class Movie extends React.Component{
   constructor () {
@@ -14,14 +14,16 @@ class Movie extends React.Component{
   render () {
     return (
         <div className="movie">
-            <MovieInput onSubmit={this.handleMovieInputSubmit} movie={this.state.movieToUpdate}/> <br />
-            <MovieList movies={this.getMovies()} />
-            <h3 id="favouriteListTitle" />
-            <ul id="list" />
-            <MovieEdit movies={this.getMovies()} onSubmit={this.handleMovieUpdate.bind(this)} />
+          <Link to="/MovieInput"><button className="buttonSelect">Movie Input</button></Link>
+          <Link to="/MovieList"><button className="buttonSelect">Movie List</button></Link>
+          <h3 id="favouriteListTitle" />
+          <ul id="list" />
         </div>
     );
   }
+
+  //
+  // <MovieEdit movies={this.getMovies()} onSubmit={this.handleMovieUpdate.bind(this)} />
 
   getMovies () {
     let movies = localStorage.getItem("movieStorage") || [];
@@ -39,11 +41,10 @@ class Movie extends React.Component{
     localStorage.setItem("movieStorage", JSON.stringify(movies));
   }
 
-  handleMovieUpdate (index, i) {
+  handleMovieUpdate (index) {
     if(index!==null){
       let movies = JSON.parse(localStorage.getItem("movieStorage"));
       console.log(movies[index])
-      // console.log(movies[index])
       this.setState({movieToUpdate: movies[index]});
     }
   }

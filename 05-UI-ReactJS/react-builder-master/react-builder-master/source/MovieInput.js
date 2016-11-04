@@ -1,4 +1,9 @@
 import React from 'react';
+import Movie from './Movie';
+import {addMovie, initializeState} from './Redux/actions';
+import store from './store';
+import { connect } from 'react-redux';
+import { handleMovies } from './Redux/reducers';
 
 class MovieInput extends React.Component {
   constructor(props) {
@@ -33,15 +38,14 @@ class MovieInput extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log('guardo', this.props)
-    if (this.props.onSubmit) {
-      this.props.onSubmit(this.state);
-    }
+    store.dispatch(initializeState())
+    store.dispatch(addMovie(this.state))
   }
 
   render() {
     return (
-      <div>Movie<br/>
+      <div>
+      <Movie /><h3>Movie</h3><br/>
             <input type="text" placeholder="Title" name="title" value={this.state.title} onChange={this.handleChangeTitle} /><br /><br />
             <input type="text" placeholder="Year" name="year" value={this.state.year} onChange={this.handleChangeYear} /><br /><br />
             <input type="text" placeholder="Duration" name="duration" value={this.state.duration} onChange={this.handleChangeDuration}/><br /><br />

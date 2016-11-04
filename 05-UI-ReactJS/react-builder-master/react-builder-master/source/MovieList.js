@@ -1,28 +1,40 @@
 import React from 'react';
+import Movie from './Movie';
 
 class MovieList extends React.Component {
-  constructor (props) {
-    super(props);
+  constructor () {
+    super();
 
     this.renderItem = this.renderItem.bind(this);
   }
 
   render() {
     return (
-      <ul>
-        {this.renderItems()}
-      </ul>
+      <div>
+        <Movie />
+        <ul>
+          {this.renderItems()}
+        </ul>
+      </div>
 
     );
   }
 
+  getMovies () {
+    let movies = localStorage.getItem("movieStorage") || [];
+    if(movies != ''){
+      return JSON.parse(movies)
+    }
+    else {
+      return JSON.parse('null')
+    }
+  }
+
   renderItems () {
     let favourites;
-    if(this.props.movies !== null){
-      favourites = this.props.movies.filter( function(item) {
-        return item.favourite
-      })
-      return favourites.map(this.renderItem);
+    let movies = this.getMovies();
+    if(movies !== null){
+      return movies.map(this.renderItem);
     }
     return (
       <li />
@@ -30,16 +42,14 @@ class MovieList extends React.Component {
   }
 
   renderItem (item, index) {
+    let boundItemClick = this.initializeState;
     return (
       <li key={index}>
         {`Title: ${item.title} Year: ${item.year} Duration: ${item.duration}`}
+        <button onClick={boundItemClick}>Edit</button>
       </li>
     );
   }
-};
-
-MovieList.propTypes = {
-  movies: React.PropTypes.array.isRequired
 };
 
 export default MovieList;
