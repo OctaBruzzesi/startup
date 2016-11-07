@@ -52,7 +52,7 @@ class MovieList extends React.Component {
     return (
       <li key={index}>
         {`Title: ${item.title} Year: ${item.year} Duration: ${item.duration}`}
-        <Link to="/MovieInput"><button className="buttonSelect">Edit</button></Link>
+        <Link to={`MovieInput/${JSON.stringify(item, item.new=false)}`}><button className="buttonSelect">Edit</button></Link>
       </li>
     );
   }

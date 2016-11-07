@@ -4,17 +4,36 @@ import MovieInput from './MovieInput';
 import MovieList from './MovieList';
 import MovieEdit from './MovieEdit';
 import { Link } from 'react-router';
+import { getMaxId } from './Redux/actions';
+import store from './store';
+import { handleMovies } from './Redux/reducers';
 
 class Movie extends React.Component{
   constructor () {
     super();
-    this.state = {movieToUpdate: {}}
+    this.state = {title:'',
+    year:'',
+    duration:'',
+    favourite: false,
+    new: true}
   }
 
+  getMaxId () {
+    let movie = {
+      title:'',
+      year:'',
+      duration:'',
+      favourite:''
+    }
+    // console.log(movie)
+    return(movie)
+  }
   render () {
+    let item = {title: '', year: '', duration: '', favourite: false, new:true};
+    // console.log("item", JSON.stringify(item))
     return (
         <div className="movie">
-          <Link to="/MovieInput"><button className="buttonSelect">Movie Input</button></Link>
+          <Link to={`MovieInput/0`}><button className="buttonSelect">Movie Input</button></Link>
           <Link to="/MovieList"><button className="buttonSelect">Movie List</button></Link>
           <h3 id="favouriteListTitle" />
           <ul id="list" />

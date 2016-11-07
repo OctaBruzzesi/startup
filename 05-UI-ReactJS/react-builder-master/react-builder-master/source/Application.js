@@ -6,7 +6,6 @@ import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 're
 import { Provider } from 'react-redux';
 import store from './store';
 
-
 class Application extends Component {
   render() {
     return (
@@ -14,7 +13,7 @@ class Application extends Component {
         <Provider store={store}>
           <Router history={hashHistory}>
             <Route path='/' component={Movie} />
-              <Route path='/MovieInput' component={MovieInput} />
+              <Route path='/MovieInput/(:movieID)' component={MovieInput} handler={MovieInput}/>
               <Route path='/MovieList' component={MovieList} />
             <Route path='*' component={NotFound} />
           </Router>

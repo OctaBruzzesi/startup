@@ -1,4 +1,4 @@
-import { ADD_MOVIE, LIST_MOVIE, EDIT_MOVIE, INITIALIZE_STATE } from './actions'
+import { ADD_MOVIE, REMOVE_MOVIE, EDIT_MOVIE, INITIALIZE_STATE } from './actions'
 
 function handleMovies(state = [ { movies: {} } ], action) {
   let movies = JSON.parse(localStorage.getItem("movieStorage")) || [];
@@ -9,13 +9,17 @@ function handleMovies(state = [ { movies: {} } ], action) {
       return(state);
     case ADD_MOVIE:
       state.push(action.movie);
-      localStorage.setItem("movieStorage", JSON.stringify(state));
+      console.log("a")
+      // localStorage.setItem("movieStorage", JSON.stringify(state));
       return(state)
-      // return state;
-    case LIST_MOVIE:
+    case REMOVE_MOVIE:
+      console.log(state.length);
+      return(state.length)
+    case EDIT_MOVIE:
+      console.log(action.movie, action.index)
+      state[action.index] = action.movie
       console.log(state);
       break;
-    case EDIT_MOVIE:
     default:
       return state
   }
