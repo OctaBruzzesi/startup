@@ -1,5 +1,10 @@
 import React from 'react';
 import Movie from './Movie';
+import {listMovie} from './Redux/actions';
+import store from './store';
+import { connect } from 'react-redux';
+import { handleMovies } from './Redux/reducers';
+import { Link } from 'react-router';
 
 class MovieList extends React.Component {
   constructor () {
@@ -31,8 +36,9 @@ class MovieList extends React.Component {
   }
 
   renderItems () {
-    let favourites;
-    let movies = this.getMovies();
+    let movies;
+    movies = store.getState();
+    console.log(movies)
     if(movies !== null){
       return movies.map(this.renderItem);
     }
@@ -46,7 +52,7 @@ class MovieList extends React.Component {
     return (
       <li key={index}>
         {`Title: ${item.title} Year: ${item.year} Duration: ${item.duration}`}
-        <button onClick={boundItemClick}>Edit</button>
+        <Link to="/MovieInput"><button className="buttonSelect">Edit</button></Link>
       </li>
     );
   }

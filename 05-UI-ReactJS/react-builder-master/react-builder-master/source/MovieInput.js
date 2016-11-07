@@ -22,7 +22,6 @@ class MovieInput extends React.Component {
 
   handleChangeTitle(event) {
     this.setState({title: event.target.value});
-    console.log(this.state.title);
   }
 
   handleChangeYear(event) {
@@ -38,7 +37,6 @@ class MovieInput extends React.Component {
   }
 
   handleSubmit(event) {
-    store.dispatch(initializeState())
     store.dispatch(addMovie(this.state))
   }
 

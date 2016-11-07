@@ -11,8 +11,8 @@ export function addMovie(movie) {
   return {type: ADD_MOVIE, movie: movie }
 }
 
-export function listMovie(index) {
-  return { type: LIST_MOVIE, index }
+export function listMovie() {
+  return { type: LIST_MOVIE }
 }
 
 export function editMovie(text) {

@@ -5,14 +5,16 @@ function handleMovies(state = [ { movies: {} } ], action) {
   switch (action.type) {
     case INITIALIZE_STATE:
       state = movies;
+      console.log(state)
+      return(state);
     case ADD_MOVIE:
       state.push(action.movie);
-      console.log('es' + state)
-      // movies.push(action.movie)
-      // console.log(movies)
-      // localStorage.setItem("movieStorage", JSON.stringify(movies));
+      localStorage.setItem("movieStorage", JSON.stringify(state));
+      return(state)
       // return state;
     case LIST_MOVIE:
+      console.log(state);
+      break;
     case EDIT_MOVIE:
     default:
       return state
