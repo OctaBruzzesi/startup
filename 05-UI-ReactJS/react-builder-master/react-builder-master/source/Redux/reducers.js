@@ -10,16 +10,16 @@ function handleMovies(state = [ { movies: {} } ], action) {
     case ADD_MOVIE:
       state.push(action.movie);
       console.log("a")
-      // localStorage.setItem("movieStorage", JSON.stringify(state));
+      localStorage.setItem("movieStorage", JSON.stringify(state));
       return(state)
     case REMOVE_MOVIE:
-      console.log(state.length);
-      return(state.length)
+      state.splice(action.index, 1);
+      localStorage.setItem("movieStorage", JSON.stringify(state));
+      return(state)
     case EDIT_MOVIE:
-      console.log(action.movie, action.index)
-      state[action.index] = action.movie
-      console.log(state);
-      break;
+      state[action.movie.id] = action.movie
+      localStorage.setItem("movieStorage", JSON.stringify(state));
+      return(state)
     default:
       return state
   }

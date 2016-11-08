@@ -9,21 +9,24 @@ import store from './store';
 class Application extends Component {
   render() {
     return (
-      <div>
-        <Provider store={store}>
-          <Router history={hashHistory}>
-            <Route path='/' component={Movie} />
-              <Route path='/MovieInput/(:movieID)' component={MovieInput} handler={MovieInput}/>
-              <Route path='/MovieList' component={MovieList} />
-            <Route path='*' component={NotFound} />
-          </Router>
-        </Provider>
-        {console.log(Provider)}
-      </div>
+      <Provider store={store}>
+        <Router history={hashHistory}>
+          <Route path='/' component={Movie} />
+            <Route path='/MovieInput/(:movieID)' component={MovieInput} handler={MovieInput}/>
+            <Route path='/MoviesHandler' component={MovieList} />
+          <Route path='*' component={NotFound} />
+        </Router>
+      </Provider>
     )
   }
 }
 const NotFound = () => (
 <h1>404.. This page is not found!</h1>)
+
+const mapStateToProps = (state) => {
+  return {
+    todos: App(state.movie)
+  }
+}
 
 export default Application;

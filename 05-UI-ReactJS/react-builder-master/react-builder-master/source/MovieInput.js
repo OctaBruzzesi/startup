@@ -17,7 +17,7 @@ class MovieInput extends React.Component {
       year: movies.year,
       duration: movies.duration,
       favourite: movies.favourite,
-      new: movies.new
+      id: movies.id
       // title: movies[this.props.params.movieID].title || '',
       // year: movies[this.props.params.movieID].year || '',
       // duration: movies[this.props.params.movieID].duration || '',
@@ -33,9 +33,9 @@ class MovieInput extends React.Component {
   }
 
   component(props){
-    // console.log(this.props)
-    // let a = store.dispatch(getMaxId());
-    // console.log(a);
+    console.log(this.props)
+    let a = store.dispatch(getMaxId());
+    console.log(a);
   }
 
   handleChangeTitle(event) {
@@ -55,13 +55,12 @@ class MovieInput extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state)
-    // if (this.state.new){
-    // store.dispatch(addMovie(this.state))
-    // } else {
-    //   console.log(this.state)
-    //   store.dispatch(editMovie(this.state, this.props.params.movieID));
-    // }
+    // console.log(this.props.params.movieID)
+    if (this.props.params.movieID==='0'){
+      store.dispatch(addMovie(this.state))
+    } else {
+      store.dispatch(editMovie(this.state, this.props.params.movieID));
+    }
   }
 
   render() {
@@ -73,7 +72,7 @@ class MovieInput extends React.Component {
     // }
     return (
       <div>
-        <Movie /><h3>Movie</h3><br/>
+        <Movie store={store}/><h3>Movie</h3><br/>
         <div>
           <input type="text" placeholder="Title" name="title" value={this.state.title} onChange={this.handleChangeTitle} /><br /><br />
           <input type="text" placeholder="Year" name="year" value={this.state.year} onChange={this.handleChangeYear} /><br /><br />
@@ -85,13 +84,6 @@ class MovieInput extends React.Component {
       </div>
     );
   }
-
-  initializeState (title, year, duration, favourite) {
-      this.setState({title: title})
-      this.setState({year: year})
-      this.setState({duration: duration})
-      this.setState({favourite: favourite})
-    }
 
   // renderInput () {
   //   return (

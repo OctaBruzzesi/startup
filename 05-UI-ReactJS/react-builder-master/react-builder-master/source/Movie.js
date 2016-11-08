@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MovieInput from './MovieInput';
-import MovieList from './MovieList';
+import MoviesHandler from './MovieList';
 import MovieEdit from './MovieEdit';
 import { Link } from 'react-router';
 import { getMaxId } from './Redux/actions';
-import store from './store';
+// import store from './store';
 import { handleMovies } from './Redux/reducers';
 
 class Movie extends React.Component{
@@ -15,7 +15,11 @@ class Movie extends React.Component{
     year:'',
     duration:'',
     favourite: false,
-    new: true}
+    }
+  }
+
+  component () {
+    console.log(this.props.store.getState())
   }
 
   getMaxId () {
@@ -29,12 +33,14 @@ class Movie extends React.Component{
     return(movie)
   }
   render () {
-    let item = {title: '', year: '', duration: '', favourite: false, new:true};
+    let item = {title: '', year: '', duration: '', favourite: false};
+    let movies = localStorage.getItem("movieStorage") || [];
     // console.log("item", JSON.stringify(item))
     return (
         <div className="movie">
           <Link to={`MovieInput/0`}><button className="buttonSelect">Movie Input</button></Link>
-          <Link to="/MovieList"><button className="buttonSelect">Movie List</button></Link>
+          <Link to="/MoviesHandler"><button className="buttonSelect">Movie List</button></Link>
+          <button onClick={this.component.bind(this)}>Select</button>
           <h3 id="favouriteListTitle" />
           <ul id="list" />
         </div>

@@ -5,6 +5,7 @@ import store from './store';
 import { connect } from 'react-redux';
 import { handleMovies } from './Redux/reducers';
 import { Link } from 'react-router';
+import MovieList from './MovieList';
 
 class MovieList extends React.Component {
   constructor (props) {
@@ -20,24 +21,39 @@ class MovieList extends React.Component {
   }
 
   render() {
+    let movies = store.getState();
     return (
       <div>
         <Movie />
-        <ul>
-          {this.renderItems()}
-        </ul>
+
       </div>
 
     );
   }
 
-  removeMovie(index) {
+  // <MovieList movies={movies} />
 
+  getMovies () {
+    let movies = localStorage.getItem("movieStorage") || [];
+    if(movies != ''){
+      return JSON.parse(movies)
+    }
+    else {
+      return JSON.parse('null')
+    }
+  }
+
+  removeMovie(index) {
+    console.log("aaa", index)
+    store.dispatch(removeMovie(index))
   }
 
   renderItems () {
-    if(this.props.movies !== undefined){
-      return this.props.movies.map(this.renderItem);
+    let movies;
+    movies = store.getState();
+    console.log(movies)
+    if(movies !== null){
+      return movies.map(this.renderItem);
     }
     return (
       <li />
@@ -57,4 +73,4 @@ class MovieList extends React.Component {
   }
 };
 
-export default MovieList;
+export default MoviesHandler;
