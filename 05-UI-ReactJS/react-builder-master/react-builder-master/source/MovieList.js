@@ -13,16 +13,9 @@ class MovieList extends React.Component {
     this.renderItem = this.renderItem.bind(this);
   }
 
-  component(props){
-    console.log(this.props)
-    // let a = store.dispatch(getMaxId());
-    // console.log(a);
-  }
-
-  render() {
+  render () {
     return (
       <div>
-        <Movie />
         <ul>
           {this.renderItems()}
         </ul>
@@ -31,17 +24,14 @@ class MovieList extends React.Component {
     );
   }
 
-  removeMovie(index) {
-
+  removeMovie (index) {
+    this.props.onDelete(index)
   }
 
   renderItems () {
     if(this.props.movies !== undefined){
       return this.props.movies.map(this.renderItem);
     }
-    return (
-      <li />
-    )
   }
 
   renderItem (item, index) {
@@ -51,7 +41,6 @@ class MovieList extends React.Component {
         {`Title: ${item.title} Year: ${item.year} Duration: ${item.duration}`}
         <Link to={`MovieInput/${JSON.stringify(item, item.new=false, item.id=index)}`}><button className="buttonSelect">Edit</button></Link>
         <button className="buttonSelect" onClick={this.removeMovie.bind(this, index)}>Remove</button>
-        <button onClick={this.component.bind(this)}>Try</button>
       </li>
     );
   }

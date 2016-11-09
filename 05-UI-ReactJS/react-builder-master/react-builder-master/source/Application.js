@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
 import Movie from './Movie'
-import MovieList from './MovieList';
+import MoviesHandler from './MoviesHandler';
 import MovieInput from './MovieInput';
 import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router'
 import { Provider } from 'react-redux';
 import store from './store';
 
 class Application extends Component {
-  render() {
+  render () {
     return (
       <Provider store={store}>
         <Router history={hashHistory}>
           <Route path='/' component={Movie} />
             <Route path='/MovieInput/(:movieID)' component={MovieInput} handler={MovieInput}/>
-            <Route path='/MoviesHandler' component={MovieList} />
+            <Route path='/MoviesHandler' component={MoviesHandler} />
           <Route path='*' component={NotFound} />
         </Router>
       </Provider>
