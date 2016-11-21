@@ -1,0 +1,29 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../00-HTML-CSS-basics/css/normalize.css">
+    </head>
+    <body onload="createIDBTextArea()">
+      <div class = "section">
+        <textArea id="inputTextArea" name="inputTextArea"> </textarea>
+        <button class="button" onclick="storeLocalTextArea()">Save localStorage</button>
+        <button class = "button" onclick="saveIDBTextArea()">Save on IDB</button>
+        <button class = "button" onclick="deleteLocalTextArea()">Clear localStorage</button>
+        <button class = "button" onclick="deleteIDBTextArea()">Clear IDB</button>
+      </div>
+      <br>
+      <textarea id="drop"> Drop here </textarea>
+      <p id="status"> <br>
+      <h3 id="socket">Socket Test</h3>
+        <p id="a">
+      <div id="output"></div>
+      <span class="messageSocket" id="messageSocket"></span>
+    </body>
+    <script src="./js/jsExercise1.js">
+    </script>
+</html>

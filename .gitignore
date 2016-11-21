@@ -2,5 +2,8 @@
 *.mp3
 *.jpg
 /node_modules/*
+<<<<<<< HEAD
+=======
 /02-oop-inheritance/dist/*
+>>>>>>> master
 /02-oop-inheritance/npm-debug.log
