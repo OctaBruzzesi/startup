@@ -2,15 +2,7 @@ import {EventEmitter} from './EventEmitter';
 import {logger} from './logger';
 import {classMovie} from './classMovie';
 import {classActor} from './classActor';
-
-let Social = {
-  share: function (friendName) {
-    console.log(`Share ${this.title} with ${friendName}`);
-  },
-  like: function (friendName) {
-    console.log(`${friendName} liked ${this.title}`);
-  }
-}
+import {Social} from './Social';
 
 let mylogger = new logger;
 
@@ -39,9 +31,3 @@ Movie1.like("John Frusciante");
 Movie1.addCast(actor1);
 Movie1.addCast(otherCast);
 console.log(Movie1.cast);
-//
-// Movie1.pause();
-//
-// myEmitter.on(Movie2, mylogger.log);
-// Movie2.play();
-// Movie1.pause();
