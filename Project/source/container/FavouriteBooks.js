@@ -3,6 +3,7 @@ import _ from 'lodash';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../application-component/Header';
 import CenterFavourite from '../application-component/CenterFavourite';
+import RightFavourite from '../application-component/RightFavourite';
 import Const from '../util/const';
 import { connect } from 'react-redux';
 import { handleBooks } from '../Redux/reducers';
@@ -10,9 +11,13 @@ import { handleBooks } from '../Redux/reducers';
 class FavouriteBooks extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {books: {}}
+    this.state = {recommendations: []}
 
-    this.getRecomendations = this.getRecomendations.bind(this);
+    this.getRecommendations = this.getRecommendations.bind(this);
+  }
+
+  componentWillMount () {
+    this.getRecommendations();
   }
 
   render () {
@@ -20,30 +25,54 @@ class FavouriteBooks extends React.Component {
       <MuiThemeProvider>
         <div className="main">
           <Header />
-          <CenterFavourite books={this.props.books}/>
-          {this.getRecomendations()}
+          <CenterFavourite books={this.props.books} recommendations={this.state.recommendations}/>
+          <RightFavourite recommendations={this.state.recommendations} />
         </div>
       </MuiThemeProvider>
     )
   }
 
-  getRecomendations () {
+  getRecommendations () {
     let fav = this.props.books.favourites;
-    let recomendations = [];
+    let recommendations = [];
+    let i, maxLength;
+    let authors, categories;
+
+    if(fav.length > 2) {
+      maxLength = 2;
+    } else {
+      maxLength = fav.length
+    }
     if (fav.length !== 0) {
-      console.log("Categoria", fav[0].volumeInfo.categories[0])
-      this.ajaxCall(fav[0].volumeInfo.categories[0])
+      for(i=0; i<fav.length; i++) {
+        if(fav[i].volumeInfo.authors !== undefined) {
+          authors = fav[i].volumeInfo.authors[0]
+        } else {
+          authors[i] = ''
+        }
+        if(fav[i].volumeInfo.categories !== undefined) {
+          categories = fav[i].volumeInfo.categories[0]
+        } else {
+          categories[i] = ''
+        }
+        this.ajaxCall(categories[i], authors[i]);
+      }
+
     }
     console.log("Favoritos", fav)
   }
 
-  ajaxCall (a) {
+  ajaxCall (a, b) {
     let xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `https://www.googleapis.com/books/v1/volumes?q=subject:${a}&key=${Const.API_KEY}`, true);
+    console.log("Recomendaciones", a, b)
+    xhttp.open("GET", `https://www.googleapis.com/books/v1/volumes?q=subject:${a}&inauthor:${b}&key=${Const.API_KEY}`, true);
     xhttp.onreadystatechange = function(event) {
       if (xhttp.readyState === XMLHttpRequest.DONE) {
          let response = JSON.parse(event.target.response);
-         console.log(response);
+         console.log("Libro", response)
+         let fav = this.state.recommendations.slice();
+         fav.push(response.items[0]);
+         this.setState({recommendations: fav});
       }
     }.bind(this);
     xhttp.send();

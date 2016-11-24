@@ -5,18 +5,21 @@ import { connect } from 'react-redux';
 import { handleBooks } from '../Redux/reducers';
 import IconButton from 'material-ui/IconButton';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
+import Snackbar from 'material-ui/Snackbar';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
 class CenterFavourite extends React.Component {
   constructor (props) {
     super(props);
-
+    this.state = ({open: false});
     this.renderItems = this.renderItems.bind(this);
+    this.getSnackBarProps = this.getSnackBarProps.bind(this);
   }
 
   render () {
     return (
+      <div>
       <Table>
         <TableHeader>
           <TableRow>
@@ -30,7 +33,30 @@ class CenterFavourite extends React.Component {
           {this.renderItems()}
         </TableBody>
       </Table>
+      <Snackbar {...this.getSnackBarProps()}
+        />
+      </div>
     )
+  }
+
+  getSnackBarProps () {
+    return {
+      open: this.state.open,
+      message: this.getRecommendations(),
+      autoHideDuration: 15000,
+      onRequestClose: this.handleRequestClose.bind(this)
+    }
+  }
+
+  getRecommendations () {
+    let recommendations;
+    let recommendationsArray = this.props.recommendations;
+    if(recommendationsArray.length !== 0) {
+      let random = Math.floor(Math.random() * recommendationsArray.length)
+      recommendations = `Book recommended: ${recommendationsArray[random].volumeInfo.title}`;
+    }
+    console.log(recommendations);
+    return recommendations;
   }
 
   renderItems () {
@@ -63,7 +89,12 @@ class CenterFavourite extends React.Component {
     )
   }
 
+  handleRequestClose () {
+    this.setState({ open:false });
+  }
+
   handleRemoveFavourite (index) {
+    this.setState({ open: true});
     store.dispatch(removeFavourite(index));
   }
 }

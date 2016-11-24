@@ -66,6 +66,7 @@ class CenterSearch extends React.Component {
 
   handleAddFavourite (index) {
     let bookFavourite = this.props.books.books.books.items[index];
+    this.setState({ open: true})
     if(_.intersection(this.props.books.favourites, [bookFavourite]).length === 0) {
       store.dispatch(addFavourite(bookFavourite))
     } else {
