@@ -1,4 +1,9 @@
 import React from 'react';
+import store from '../store';
+import _ from 'lodash';
+import { addFavourite } from '../Redux/actions';
+import { connect } from 'react-redux';
+import { handleBooks } from '../Redux/reducers';
 import IconButton from 'material-ui/IconButton';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -7,7 +12,6 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 class CenterSearch extends React.Component {
   constructor (props) {
     super(props);
-
     this.renderItems = this.renderItems.bind(this);
   }
 
@@ -30,8 +34,8 @@ class CenterSearch extends React.Component {
   }
 
   renderItems () {
-    if(this.props.books.books.books != undefined)
-    return this.props.books.books.books.items.map(this.renderItem)
+    if(this.props.books.books.books !== undefined)
+    return this.props.books.books.books.items.map(this.renderItem.bind(this))
   }
 
   renderItem (item, index) {
@@ -52,7 +56,7 @@ class CenterSearch extends React.Component {
         <TableRowColumn>{authors}</TableRowColumn>
         <TableRowColumn>{categories}</TableRowColumn>
         <TableRowColumn>
-          <RaisedButton secondary="true">
+          <RaisedButton onClick={this.handleAddFavourite.bind(this, index)}>
             +<ActionGrade />
           </RaisedButton>
         </TableRowColumn>
@@ -60,9 +64,20 @@ class CenterSearch extends React.Component {
     )
   }
 
-  heandleBooks () {
-    console.log(this.props)
+  handleAddFavourite (index) {
+    let bookFavourite = this.props.books.books.books.items[index];
+    if(_.intersection(this.props.books.favourites, [bookFavourite]).length === 0) {
+      store.dispatch(addFavourite(bookFavourite))
+    } else {
+      alert('That book is already on favourites')
+    }
   }
 }
 
-export default CenterSearch;
+function mapStateToProps (state) {
+  return {
+    books: state
+  };
+}
+
+export default connect(mapStateToProps)(CenterSearch);

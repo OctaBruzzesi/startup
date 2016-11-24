@@ -53,7 +53,6 @@ class HeaderSearch extends React.Component {
 
   getTfProps () {
     return {
-      value: this.state.duration,
       onChange: this.handleChangeSearch,
       floatingLabelText: "Search Books",
       floatingLabelStyle: style.floatingLabelStyle,
@@ -67,27 +66,21 @@ class HeaderSearch extends React.Component {
 
   handleClick () {
     let xhttp = new XMLHttpRequest();
-    console.log(this.state)
     xhttp.open("GET", `https://www.googleapis.com/books/v1/volumes?q=${this.state.search}&key=${Const.API_KEY}`, true);
     xhttp.onreadystatechange = function(event) {
       if (xhttp.readyState === XMLHttpRequest.DONE) {
          let response = JSON.parse(event.target.response);
-         console.log(response);
          this.handleSubmit(response);
-         console.log("Books", this.state)
       }
     }.bind(this);
     xhttp.send();
    }
 
    handleChangeSearch (event) {
-     console.log("a")
      this.setState({search: event.target.value})
-     console.log(this.state)
    }
 
    handleSubmit (response) {
-     console.log(response, this.state);
      this.setState({search: this.state.search, books: response});
      store.dispatch(addBooks(this.state))
    }

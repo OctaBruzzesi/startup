@@ -13,7 +13,6 @@ class Header extends React.Component {
       <Toolbar style={{backgroundColor: '#4CAF50', height: '75px'}} className="header">
         <Link to='/SearchBooks'><RaisedButton label="Search Books"/></Link>
         <Link to='/FavouriteBooks'><RaisedButton label='Favourites'/></Link>
-        <RaisedButton />
       </Toolbar>
     )
   }

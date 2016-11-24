@@ -25,12 +25,10 @@ class SearchBooks extends React.Component {
   }
 
   handleBooks () {
-    console.log(this.props)
   }
 }
 
 function mapStateToProps (state) {
-  console.log('llego ', state);
   return {
     books: state
   };

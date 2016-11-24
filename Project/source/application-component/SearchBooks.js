@@ -22,7 +22,6 @@ class SearchBooks extends React.Component {
   }
 
   handleBooks (books) {
-    console.log("Search", books)
   }
   // <HeaderSearch />
   // <CenterSearch />

@@ -1,4 +1,8 @@
 import React from 'react';
+import store from '../store';
+import { removeFavourite } from '../Redux/actions';
+import { connect } from 'react-redux';
+import { handleBooks } from '../Redux/reducers';
 import IconButton from 'material-ui/IconButton';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -19,7 +23,7 @@ class CenterFavourite extends React.Component {
             <TableHeaderColumn>Title</TableHeaderColumn>
             <TableHeaderColumn>Author</TableHeaderColumn>
             <TableHeaderColumn>Category</TableHeaderColumn>
-            <TableHeaderColumn>Favourite</TableHeaderColumn>
+            <TableHeaderColumn></TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -30,8 +34,8 @@ class CenterFavourite extends React.Component {
   }
 
   renderItems () {
-    if(this.props.books.books.books != undefined)
-    return this.props.books.books.books.items.map(this.renderItem)
+    if(this.props.books.favourites != undefined)
+    return this.props.books.favourites.map(this.renderItem.bind(this))
   }
 
   renderItem (item, index) {
@@ -52,17 +56,22 @@ class CenterFavourite extends React.Component {
         <TableRowColumn>{authors}</TableRowColumn>
         <TableRowColumn>{categories}</TableRowColumn>
         <TableRowColumn>
-          <RaisedButton secondary="true">
-            +<ActionGrade />
+          <RaisedButton secondary="true" label="Delete" onClick={this.handleRemoveFavourite.bind(this, index)}>
           </RaisedButton>
         </TableRowColumn>
       </TableRow>
     )
   }
 
-  heandleBooks () {
-    console.log(this.props)
+  handleRemoveFavourite (index) {
+    store.dispatch(removeFavourite(index));
   }
 }
 
-export default CenterFavourite;
+function mapStateToProps (state) {
+  return {
+    books: state
+  };
+}
+
+export default connect(mapStateToProps)(CenterFavourite);
