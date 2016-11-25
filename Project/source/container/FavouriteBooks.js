@@ -36,24 +36,26 @@ class FavouriteBooks extends React.Component {
     let fav = this.props.books.favourites;
     let recommendations = [];
     let i, maxLength;
-    let authors, categories;
+    let authors = [];
+    let categories = [];
 
     if(fav.length > 2) {
       maxLength = 2;
     } else {
-      maxLength = fav.length
+      maxLength = fav.length;
     }
     if (fav.length !== 0) {
       for(i=0; i<fav.length; i++) {
         if(fav[i].volumeInfo.authors !== undefined) {
-          authors = fav[i].volumeInfo.authors[0]
+          console.log('Estoy', fav[i].volumeInfo.authors[0])
+          authors.push(fav[i].volumeInfo.authors[0]);
         } else {
-          authors[i] = ''
+          authors.push('')
         }
         if(fav[i].volumeInfo.categories !== undefined) {
-          categories = fav[i].volumeInfo.categories[0]
+          categories.push(fav[i].volumeInfo.categories[0])
         } else {
-          categories[i] = ''
+          categories.push('');
         }
         this.ajaxCall(categories[i], authors[i]);
       }

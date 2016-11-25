@@ -17,6 +17,10 @@ class CenterFavourite extends React.Component {
     this.getSnackBarProps = this.getSnackBarProps.bind(this);
   }
 
+  componentWillMount () {
+    setTimeout(function() { this.setState({open: true}); }.bind(this), 3000);
+  }
+
   render () {
     return (
       <div>
@@ -43,7 +47,7 @@ class CenterFavourite extends React.Component {
     return {
       open: this.state.open,
       message: this.getRecommendations(),
-      autoHideDuration: 15000,
+      autoHideDuration: 10000,
       onRequestClose: this.handleRequestClose.bind(this)
     }
   }
@@ -94,7 +98,6 @@ class CenterFavourite extends React.Component {
   }
 
   handleRemoveFavourite (index) {
-    this.setState({ open: true});
     store.dispatch(removeFavourite(index));
   }
 }
