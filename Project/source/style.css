@@ -1,9 +1,29 @@
-.raisedButton {
-  display: block;
-
-  background-color: red;
+.link {
+  font: "courier New";
+  text-align: center;
+  background-color: #81C784;
+  width: 50%;
 }
 
 .buttons {
     margin-top: 50px;
+}
+
+.drawer-description {
+  font: "courier New";
+  margin-left: 25%;
+}
+
+.drawer-description-title {
+  font-size: 25px;
+}
+
+.logo {
+  display: block;
+  height:150px;
+  margin: auto;
+}
+
+.textField-search {
+  margin-left: 15%;
 }

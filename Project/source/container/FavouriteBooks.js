@@ -1,13 +1,9 @@
 import React from 'react';
-import _ from 'lodash';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../application-component/Header';
 import CenterFavourite from '../application-component/CenterFavourite';
-import RightFavourite from '../application-component/RightFavourite';
-import Const from '../util/const';
 import { connect } from 'react-redux';
 import { handleBooks } from '../Redux/reducers';
-
 class FavouriteBooks extends React.Component {
   constructor (props) {
     super(props);
@@ -26,7 +22,6 @@ class FavouriteBooks extends React.Component {
         <div className="main">
           <Header />
           <CenterFavourite books={this.props.books} recommendations={this.state.recommendations}/>
-          <RightFavourite recommendations={this.state.recommendations} />
         </div>
       </MuiThemeProvider>
     )

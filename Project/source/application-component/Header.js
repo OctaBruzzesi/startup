@@ -10,10 +10,13 @@ class Header extends React.Component {
 
   render () {
     return (
-      <Toolbar style={{backgroundColor: '#4CAF50', height: '75px'}} className="header">
-        <Link to='/SearchBooks'><RaisedButton label="Search Books"/></Link>
-        <Link to='/FavouriteBooks'><RaisedButton label='Favourites'/></Link>
-      </Toolbar>
+      <div>
+        <img src='BOOKSIFY.jpg' className="logo"/>
+        <Toolbar style={{backgroundColor: '#4CAF50', height: '75px'}} className="header">
+          <Link className="link" to='/SearchBooks'>SEARCH BOOKS</Link>
+          <Link className="link" to='/FavouriteBooks'>FAVOURITES</Link>
+        </Toolbar>
+      </div>
     )
   }
 }

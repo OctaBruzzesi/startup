@@ -7,13 +7,14 @@ import { handleBooks } from '../Redux/reducers';
 import IconButton from 'material-ui/IconButton';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 import Drawer from 'material-ui/Drawer';
+import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
 class CenterSearch extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {open: false}
+    this.state = {open: false, description: {}}
     this.renderItems = this.renderItems.bind(this);
   }
 
@@ -21,7 +22,7 @@ class CenterSearch extends React.Component {
     return (
       <div>
       <Table onCellClick={this.handleClick.bind(this)}>
-        <TableHeader>
+        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
             <TableHeaderColumn>Title</TableHeaderColumn>
             <TableHeaderColumn>Author</TableHeaderColumn>
@@ -29,12 +30,12 @@ class CenterSearch extends React.Component {
             <TableHeaderColumn>Favourite</TableHeaderColumn>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody displayRowCheckbox={false}>
           {this.renderItems()}
         </TableBody>
       </Table>
-      <Drawer width={200} openSecondary={true} open={this.state.open} >
-          asd
+      <Drawer width={300} openSecondary={true} open={this.state.open}>
+        {this.renderDescription()}
       </Drawer>
       </div>
     )
@@ -50,12 +51,12 @@ class CenterSearch extends React.Component {
     if(item.volumeInfo.authors !== undefined) {
       authors = item.volumeInfo.authors[0]
     } else {
-      authors = 'WA'
+      authors = 'UA'
     }
     if(item.volumeInfo.categories !== undefined) {
       categories = item.volumeInfo.categories[0]
     } else {
-      categories = 'WA'
+      categories = 'UC'
     }
     return (
       <TableRow index={index}>
@@ -63,7 +64,7 @@ class CenterSearch extends React.Component {
         <TableRowColumn>{authors}</TableRowColumn>
         <TableRowColumn>{categories}</TableRowColumn>
         <TableRowColumn>
-          <RaisedButton onClick={this.handleAddFavourite.bind(this, index)}>
+          <RaisedButton secondary={true} onClick={this.handleAddFavourite.bind(this, index)}>
             +<ActionGrade />
           </RaisedButton>
         </TableRowColumn>
@@ -73,7 +74,6 @@ class CenterSearch extends React.Component {
 
   handleAddFavourite (index) {
     let bookFavourite = this.props.books.books.books.items[index];
-    this.setState({ open: true})
     if(_.intersection(this.props.books.favourites, [bookFavourite]).length === 0) {
       store.dispatch(addFavourite(bookFavourite))
     } else {
@@ -81,8 +81,40 @@ class CenterSearch extends React.Component {
     }
   }
 
-  handleClick () {
-    this.setState({open: true});
+  handleClick (rowNumber, columnNumber, evt) {
+    if(columnNumber !== 4) {
+      console.log("Estoy", columnNumber);
+      this.setState({open: !this.state.open, description: this.props.books.books.books.items[rowNumber]});
+    }
+  }
+
+  renderDescription () {
+    console.log(this.state.description)
+    let renderComponent = null;
+    let book = this.state.description
+    let authors;
+    console.log("Open search", this.state.open)
+    if (this.state.open) {
+      if (book.volumeInfo.authors !== undefined) {
+        authors = book.volumeInfo.authors.map(function (authors) {
+          return `${authors}\n`
+        })
+      } else {
+        authors = 'Unknown author';
+      }
+      renderComponent = (
+        <div className="drawer-description">
+          <div className="drawer-description-header">
+            <p className="drawer-description-title"> {book.volumeInfo.title} </p>
+          </div>
+          <img src={book.volumeInfo.imageLinks.thumbnail} />
+          <p> {authors} </p>
+          <p> {book.volumeInfo.description} </p>
+          <p className="drawer-description-link"><a href={book.volumeInfo.previewLink}> Book Preview </a></p>
+        </div>
+      );
+    }
+    return renderComponent
   }
 }
 
