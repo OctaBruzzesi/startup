@@ -6,18 +6,21 @@ import { connect } from 'react-redux';
 import { handleBooks } from '../Redux/reducers';
 import IconButton from 'material-ui/IconButton';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
+import Drawer from 'material-ui/Drawer';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
 class CenterSearch extends React.Component {
   constructor (props) {
     super(props);
+    this.state = {open: false}
     this.renderItems = this.renderItems.bind(this);
   }
 
   render () {
     return (
-      <Table>
+      <div>
+      <Table onCellClick={this.handleClick.bind(this)}>
         <TableHeader>
           <TableRow>
             <TableHeaderColumn>Title</TableHeaderColumn>
@@ -30,6 +33,10 @@ class CenterSearch extends React.Component {
           {this.renderItems()}
         </TableBody>
       </Table>
+      <Drawer width={200} openSecondary={true} open={this.state.open} >
+          asd
+      </Drawer>
+      </div>
     )
   }
 
@@ -72,6 +79,10 @@ class CenterSearch extends React.Component {
     } else {
       alert('That book is already on favourites')
     }
+  }
+
+  handleClick () {
+    this.setState({open: true});
   }
 }
 
