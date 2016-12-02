@@ -3,6 +3,7 @@ import Movie from './Movie';
 import { removeMovie } from './Redux/actions';
 import { connect } from 'react-redux';
 import { handleMovies } from './Redux/reducers';
+import store from './store';
 import MovieList from './MovieList';
 
 class MoviesHandler extends React.Component {

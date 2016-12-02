@@ -1,22 +1,22 @@
 import React from 'react';
 import Movie from './Movie';
-import {addMovie, editMovie, initializeState} from './Redux/actions';
+import { addMovie, editMovie } from './Redux/actions';
 import { connect } from 'react-redux';
-import { handleMovies } from './Redux/reducers';
 import { Link } from 'react-router';
+import store from './store';
 
 class MovieInput extends React.Component {
   constructor(props) {
     super(props);
 
     let movies = JSON.parse(this.props.params.movieID)
-
+    console.log(store.getState())
     this.state = {
-      title: movies.title,
-      year: movies.year,
-      duration: movies.duration,
-      favourite: movies.favourite,
-      id: movies.id
+        title: movies.title,
+        year: movies.year,
+        duration: movies.duration,
+        favourite: true,
+        id: movies.id
       }
 
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
@@ -39,31 +39,54 @@ class MovieInput extends React.Component {
   }
 
   handleFavourite (event) {
+    console.log("estoy", event.target.checked)
     this.setState({favourite: event.target.checked})
   }
 
   handleSubmit (event) {
-    if (this.props.params.movieID==='0'){
+    if (this.props.params.movieID === '0'){
       store.dispatch(addMovie(this.state))
     } else {
       store.dispatch(editMovie(this.state, this.props.params.movieID));
     }
-    this.setState({title: '', year: '', duration: '', favourite: ''})
+
+
+    this.setState({title: '', year: '', duration: '', favourite: false})
   }
 
   render () {
     return (
       <div>
-        <Movie /><h3>Movie</h3><br/>
+        <Movie /><h3>Movie</h3>
         <div>
-          <input type="text" placeholder="Title" name="title" value={this.state.title} onChange={this.handleChangeTitle} /><br /><br />
-          <input type="text" placeholder="Year" name="year" value={this.state.year} onChange={this.handleChangeYear} /><br /><br />
-          <input type="text" placeholder="Duration" name="duration" value={this.state.duration} onChange={this.handleChangeDuration}/><br /><br />
-          <label />Mark as favourite <input type="checkbox" checked={this.state.favourite} onChange={this.handleFavourite} /> <br /> <br />
+          <input {...this.getInputProps("Title", "title", this.state.title, this.handleChangeTitle)} />
+          <input {...this.getInputProps("Year", "year", this.state.year, this.handleChangeYear)} />
+          <input {...this.getInputProps("Duration", "duration", this.state.duration, this.handleChangeDuration)} />
+          <label />Mark as favourite <input {...this.getCheckboxProps()} />
           <Link to={`MovieInput/0`}><button onClick={this.handleSubmit.bind(this)}>Submit</button></Link>
         </div>
       </div>
     );
+  }
+
+  getInputProps (placeholder, name, value, onChange) {
+    return {
+      type: 'text',
+      placeholder: placeholder,
+      name: name,
+      value: value,
+      onChange: onChange,
+      className: 'input'
+    }
+  }
+
+  getCheckboxProps () {
+    return {
+      type: 'checkbox',
+      checked: this.state.favourite,
+      onChange: this.handleFavourite,
+      className: 'checkbox'
+    }
   }
 };
 

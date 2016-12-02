@@ -12,13 +12,12 @@ class Movie extends React.Component{
   }
 
   render () {
-    let item = {title: '', year: '', duration: '', favourite: false};
     return (
       <div className="movie">
-        <Link to={`MovieInput/0`}><button className="buttonSelect">Movie Input</button></Link>
-        <Link to="/MoviesHandler"><button className="buttonSelect">Movie List</button></Link>
-        <h3 id="favouriteListTitle" />
-        <ul id="list" />
+        <Link to={`MovieInput/0`} className='link'>Movie Input</Link>
+        <Link to="/MoviesHandler" className='link'>Movie List</Link>
+        <h3 className="favouriteListTitle" />
+        <ul className="list" />
       </div>
     )
   }

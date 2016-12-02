@@ -7,20 +7,20 @@ const REMOVE_MOVIE = 'remove_movie';
 const EDIT_MOVIE = 'edit_movie';
 const INITIALIZE_STATE = 'initialize_state'
 
-export function addMovie(movie) {
+function addMovie(movie) {
   return {type: ADD_MOVIE, movie: movie }
 }
 
-export function removeMovie(index) {
+function removeMovie(index) {
   return { type: REMOVE_MOVIE, index }
 }
 
-export function editMovie(movie, index) {
+function editMovie(movie, index) {
   return { type: EDIT_MOVIE, movie, index }
 }
 
-export function initializeState () {
+function initializeState () {
   return { type: INITIALIZE_STATE}
 }
 
-export { ADD_MOVIE, REMOVE_MOVIE, EDIT_MOVIE, INITIALIZE_STATE };
+export { ADD_MOVIE, REMOVE_MOVIE, EDIT_MOVIE, INITIALIZE_STATE, addMovie, removeMovie, editMovie, initializeState };
