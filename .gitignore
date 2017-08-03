@@ -1,9 +1,11 @@
 *.mp4
 *.mp3
-*.jpg
 /node_modules/*
 <<<<<<< HEAD
 =======
 /02-oop-inheritance/dist/*
 >>>>>>> master
 /02-oop-inheritance/npm-debug.log
+/Project/node_modules/*
+/05-UI-ReactJS/*
+/Project/dist/*
